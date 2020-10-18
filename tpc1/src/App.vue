@@ -14,6 +14,7 @@
           </v-col>
         </v-row>
       </v-container>
+      <br />
 
       <v-container>
         <v-card>
@@ -41,7 +42,7 @@
       <br />
       <br />
       <v-container>
-        <v-card>
+        <v-card color="#202020">
           <v-row align="center">
             <v-col cols="12" sm="1" />
             <v-col cols="12" sm="3">
@@ -52,12 +53,14 @@
               ></v-img>
             </v-col>
             <v-col class="text-center" cols="12" md="7">
-              <h1 class="font-weight-regular "
-              v-bind:style="styleObject2">
+              <h1
+                class="font-weight-light font-italic"
+                v-bind:style="styleObject2"
+              >
                 Um Pouco de História
               </h1>
               <v-card-text
-                class="text-xl text-center text-justify "
+                class="text-xl text-center text-justify font-weight-light"
                 v-bind:style="styleObject"
               >
                 <!-- Falta meter a identação do 1ºparagrafo -->
@@ -77,7 +80,7 @@
           <v-row align="center">
             <v-col cols="12" sm="1" />
             <v-col cols="12" sm="3">
-              <v-card-text class="text-center">
+              <v-card-text class="text-center" v-bind:style="styleObject3">
                 🇺🇸 Jonh J. Loud (1844-1916)
               </v-card-text>
             </v-col>
@@ -88,91 +91,91 @@
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
       <v-form>
         <v-container>
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field
-                label="Solo"
-                placeholder="Deixa aqui a tua marca"
-                solo
-              ></v-text-field
-            ></v-col>
-            <v-col cols="12" md="3">
-              <v-dialog v-model="dialog" persistent max-width="290">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    v-bind="attrs"
-                    v-on="on"
-                    block
-                    elevation="2"
-                    class="ma-2"
-                    @click="dialog3 = true"
-                    large
-                    text
-                    >Muda de tinta</v-btn
-                  >
-                </template>
-                <v-card>
-                  <v-card-title> Escolha a cor da sua tinta </v-card-title>
-                  <v-color-picker
-                    v-model="picker"
-                    hide-inputs
-                    flat
-                  ></v-color-picker>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" text @click="dialog = false">
-                      Cancelar
-                    </v-btn>
-                    <v-btn color="green darken-1" text @click="dialog = false">
-                      Mudar
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-col>
-            <!-- <v-col cols="12" md="3">
+          <v-card>
+            <v-card-title class="justify-center"> 
+              Experimente aqui a sua esferográfica
+            </v-card-title>
+            <v-row >
+              <v-col cols="12" md="1"/>
+              <v-col cols="12" md="6" >
+                <v-text-field
+                  label="Solo"
+                  :counter="max"
+                  placeholder="Deixa aqui a tua marca"
+                  solo
+                ></v-text-field
+              ></v-col>
+              <v-col cols="12" md="3">
+                <v-dialog v-model="dialog" persistent max-width="290">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      v-bind="attrs"
+                      v-on="on"
+                      block
+                      elevation="2"
+                      class="ma-2"
+                      @click="dialog3 = true"
+                      large
+                      text
+                      >Muda de tinta</v-btn
+                    >
+                  </template>
+                  <v-card>
+                    <v-card-title> Escolha a cor da sua tinta </v-card-title>
+                    <v-color-picker
+                      v-model="picker"
+                      hide-inputs
+                      flat
+                    ></v-color-picker>
+                    <v-card-actions>
+                      <v-spacer />
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog = false"
+                      >
+                        Cancelar
+                      </v-btn>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog = false"
+                      >
+                        Mudar
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+              <!-- <v-col cols="12" md="3">
               <v-btn  block elevation="2" large text >Enviar Mensagem</v-btn>
             </v-col> -->
-          </v-row>
+            </v-row>
+          </v-card>
         </v-container>
       </v-form>
-      <v-container> </v-container>
-      <div />
-
-      <!-- <v-container>
-        <v-card>
-          <v-parallax
-            src="https://img.wallpapersafari.com/desktop/1680/1050/72/93/IOma0Q.jpg"
-          >
-            <v-row align="center" justify="center">
-              <v-col class="text-center" cols="12">
-                <h1 class="font-weight-thin text-justify mb-4"
-                >
-                  Canetas esferográficas são um tipo de caneta cuja tinta
-                  envolve uma esfera rolante que desliza sobre a superfície
-                  destinada à escrita, disponível em várias cores. Na evolução
-                  da caneta, o uso de uma esfera na ponta possibilitou a
-                  distribuição constante e uniforme de tinta, e popularizou o
-                  uso deste instrumento de escrita ao mesmo tempo em que
-                  substituía com vantagem a caneta-tinteiro. Com a invenção da
-                  caneta as pessoas passaram a escrever cartas, postais e
-                  livros. Hoje em dia a caneta esferográfica é usada
-                  universalmente para escrever apontamentos e fazer testes.
-                </h1>
-              </v-col>
-            </v-row>
-            <h1>História</h1>
-          </v-parallax>
-        </v-card>
-      </v-container> -->
+      <br />
+      <br />
+      <br />
+      <v-container>
+        <v-divider />
+      </v-container>
+      <v-container>
+        <v-card-text href="https://github.com/puyol105">
+          A75310 - Renato Cruzinha
+        </v-card-text>
+      </v-container>
     </v-main>
   </v-app>
 </template>
+
+<style>
+#app {
+  background-color: var(--v-background-base);
+}
+</style>
 
 <script>
 export default {
@@ -183,14 +186,21 @@ export default {
   components: {},
 
   data: () => ({
-
     dialog: false,
 
     styleObject: {
       fontSize: "20px",
+      color: "#FFFFFF",
     },
+
     styleObject2: {
       fontSize: "40px",
+      color: "#FFFFFF",
+    },
+
+    styleObject3: {
+      fontSize: "15px",
+      color: "#FFFFFF",
     },
   }),
 };
