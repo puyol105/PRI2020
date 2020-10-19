@@ -94,19 +94,24 @@
       <v-form>
         <v-container>
           <v-card>
-            <v-card-title class="justify-center"> 
+            <v-card-title class="justify-center">
               Experimente aqui a sua esferográfica
             </v-card-title>
-            <v-row >
-              <v-col cols="12" md="1"/>
-              <v-col cols="12" md="6" >
+            <v-row>
+              <v-col cols="12" md="1" />
+              <v-col cols="12" md="6">
+                {{ "OLA " + picker }}
+
                 <v-text-field
-                  label="Solo"
-                  :counter="max"
                   placeholder="Deixa aqui a tua marca"
-                  solo
-                ></v-text-field
-              ></v-col>
+
+                >
+                <template v-slot:message="msg">
+                      <span color>{{msg}}</h1>
+                  </template>
+                </v-text-field>
+
+              </v-col>
               <v-col cols="12" md="3">
                 <v-dialog v-model="dialog" persistent max-width="290">
                   <template v-slot:activator="{ on, attrs }">
@@ -116,7 +121,7 @@
                       block
                       elevation="2"
                       class="ma-2"
-                      @click="dialog3 = true"
+                      @click="dialog = true"
                       large
                       text
                       >Muda de tinta</v-btn
@@ -125,9 +130,9 @@
                   <v-card>
                     <v-card-title> Escolha a cor da sua tinta </v-card-title>
                     <v-color-picker
-                      v-model="picker"
                       hide-inputs
                       flat
+                      @input="atualizarPicker"
                     ></v-color-picker>
                     <v-card-actions>
                       <v-spacer />
@@ -171,12 +176,6 @@
   </v-app>
 </template>
 
-<style>
-#app {
-  background-color: var(--v-background-base);
-}
-</style>
-
 <script>
 export default {
   name: "App",
@@ -187,6 +186,8 @@ export default {
 
   data: () => ({
     dialog: false,
+
+    picker: "#000000",
 
     styleObject: {
       fontSize: "20px",
@@ -202,6 +203,29 @@ export default {
       fontSize: "15px",
       color: "#FFFFFF",
     },
+    
   }),
+  methods: {
+    atualizarPicker(novoValor) {
+      this.picker = novoValor.hexa;
+    },
+  },
+  computed: {
+    cssTextField() {
+      return {
+        color: this.picker,
+      };
+    },
+  },
 };
 </script>
+
+<style>
+#app {
+  background-color: var(--v-background-base);
+}
+
+.text-field input {
+  color: picker !important;
+}
+</style>
