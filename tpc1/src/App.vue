@@ -100,17 +100,11 @@
             <v-row>
               <v-col cols="12" md="1" />
               <v-col cols="12" md="6">
-                {{ "OLA " + picker }}
-
                 <v-text-field
                   placeholder="Deixa aqui a tua marca"
-
+                  :color="picker"
                 >
-                <template v-slot:message="msg">
-                      <span color>{{msg}}</h1>
-                  </template>
                 </v-text-field>
-
               </v-col>
               <v-col cols="12" md="3">
                 <v-dialog v-model="dialog" persistent max-width="290">
@@ -187,23 +181,22 @@ export default {
   data: () => ({
     dialog: false,
 
-    picker: "#000000",
+    picker: "#000",
 
     styleObject: {
       fontSize: "20px",
-      color: "#FFFFFF",
+      color: "#FFF",
     },
 
     styleObject2: {
       fontSize: "40px",
-      color: "#FFFFFF",
+      color: "#FFF",
     },
 
     styleObject3: {
       fontSize: "15px",
-      color: "#FFFFFF",
+      color: "#FFF",
     },
-    
   }),
   methods: {
     atualizarPicker(novoValor) {
