@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT metadata (//coisas//)+ >
+<!ATTLIST metadata
+    titulo PCDATA #REQUIRED>
+
+<!ELEMENT workteam (pessoa)+ >
+<!ATTLIST workteam
+    id ID #REQUIRED>
+
+<!ELEMENT pessoa (nome,email)>
+<!ELEMENT nome (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
