@@ -101,6 +101,7 @@
               <v-col cols="12" md="1" />
               <v-col cols="12" md="6">
                 <v-text-field
+                  :style="corLetra"
                   placeholder="Deixa aqui a tua marca"
                   :color="picker"
                 >
@@ -130,13 +131,6 @@
                     ></v-color-picker>
                     <v-card-actions>
                       <v-spacer />
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialog = false"
-                      >
-                        Cancelar
-                      </v-btn>
                       <v-btn
                         color="green darken-1"
                         text
@@ -198,16 +192,19 @@ export default {
       color: "#FFF",
     },
   }),
+
   methods: {
     atualizarPicker(novoValor) {
       this.picker = novoValor.hexa;
     },
   },
+
   computed: {
-    cssTextField() {
-      return {
-        color: this.picker,
-      };
+    
+    corLetra(){
+      return{
+          "--color-input": this.picker,
+        }
     },
   },
 };
@@ -218,7 +215,7 @@ export default {
   background-color: var(--v-background-base);
 }
 
-.text-field input {
-  color: picker !important;
+.v-text-field div div div input {
+  color: var(--color-input) !important;
 }
 </style>
