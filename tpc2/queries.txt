@@ -1,0 +1,16 @@
+
+Queries:
+
+1 - Identificação das arqueossítios de Amares
+
+	//ARQELEM[/@CONCEL='Amares']/IDENTI
+
+
+2 - Identificação de todos os arqueossítios que tenham ligação ao termo "micáceo"
+
+	//ARQELEM[//LIGA/@TERMO='micáceo']/IDENTI
+
+
+3 - arqueossítios de Barcelos que tenham ligação ao termo "romanização"
+
+	//ARQELEM[/@CONCEL='Barcelos'|//LIGA/@TERMO='romanização']/IDENTI

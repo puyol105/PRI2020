@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!ELEMENT metadata (//coisas//)+ >
-<!ATTLIST metadata
-    titulo PCDATA #REQUIRED>
+<!ELEMENT project_record (metadata,workteam,abstract,deliverables) >
 
-<!ELEMENT workteam (pessoa)+ >
+<!ELEMENT metadata (key_name,title,subtitle*,start,stop, supervisor) >
+<!ELEMENT key_name (#PCDATA) >
+<!ELEMENT title (#PCDATA) >
+<!ATTLIST title 
+            href CDATA #REQUIRED >
+<!ELEMENT subtitle (#PCDATA) >
+<!ELEMENT start (#PCDATA) >
+<!ELEMENT stop (#PCDATA) >
+<!ELEMENT supervisor (#PCDATA) >
+<!ATTLIST supervisor 
+            href CDATA #REQUIRED >
+
+<!ELEMENT workteam (person+) >
 <!ATTLIST workteam
     id ID #REQUIRED>
+<!ELEMENT person (name,email) >
+<!ELEMENT name (#PCDATA) >
+<!ELEMENT email (#PCDATA) >
+<!ATTLIST email 
+            href CDATA #REQUIRED >
 
-<!ELEMENT pessoa (nome,email)>
-<!ELEMENT nome (#PCDATA)>
-<!ELEMENT email (#PCDATA)>
+
+<!ELEMENT abstract (paragraph+) >
+<!ELEMENT paragraph (#PCDATA|bold|italic|underline|link)* >
+<!ELEMENT bold (#PCDATA|italic|underline|link)* >
+<!ELEMENT italic (#PCDATA|bold|underline|link)* >
+<!ELEMENT underline (#PCDATA|bold|italic|link)* >
+
+
+<!ELEMENT deliverables (link+) >
+<!ELEMENT link (#PCDATA) >
+<!ATTLIST link 
+            href CDATA #REQUIRED >
+
+<!ELEMENT data (#PCDATA) >
