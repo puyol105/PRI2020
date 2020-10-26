@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="project_record">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="metadata"/>
+        <xs:element ref="workteam"/>
+        <xs:element ref="abstract"/>
+        <xs:element ref="deliverables"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="key_name"/>
+        <xs:element ref="title"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="subtitle"/>
+        <xs:element ref="start"/>
+        <xs:element ref="stop"/>
+        <xs:element ref="supervisor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="key_name" type="xs:string"/>
+  <xs:element name="title">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.title"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.title">
+    <xs:attribute name="href" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="subtitle" type="xs:string"/>
+  <xs:element name="start" type="xs:string"/>
+  <xs:element name="stop" type="xs:string"/>
+  <xs:element name="supervisor">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.supervisor"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.supervisor">
+    <xs:attribute name="href" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="workteam">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="person"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="attlist.workteam"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.workteam">
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+  </xs:attributeGroup>
+  <xs:element name="person">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="email"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="email">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.email"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.email">
+    <xs:attribute name="href" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="abstract">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="paragraph"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="paragraph">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="bold"/>
+        <xs:element ref="italic"/>
+        <xs:element ref="underline"/>
+        <xs:element ref="link"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bold">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="italic"/>
+        <xs:element ref="underline"/>
+        <xs:element ref="link"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="italic">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="bold"/>
+        <xs:element ref="underline"/>
+        <xs:element ref="link"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="underline">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="bold"/>
+        <xs:element ref="italic"/>
+        <xs:element ref="link"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="deliverables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="link"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="link">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.link"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.link">
+    <xs:attribute name="href" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="data" type="xs:string"/>
+</xs:schema>

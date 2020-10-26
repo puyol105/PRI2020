@@ -1,5 +1,6 @@
 
-Queries:
+Queries XPath: http://www4.di.uminho.pt/~jcr/XML/didac/xmldocs/arq.xml
+
 
 1 - Identificação das arqueossítios de Amares
 
@@ -14,3 +15,4 @@ Queries:
 3 - arqueossítios de Barcelos que tenham ligação ao termo "romanização"
 
 	//ARQELEM[/@CONCEL='Barcelos'|//LIGA/@TERMO='romanização']/IDENTI
+
