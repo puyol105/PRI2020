@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_record xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="file:/Users/puyol/Documents/PLC/PRI/tpc2/tpc2.xsd">
+    <metadata>
+        <key_name></key_name>
+        <title href=""></title>
+        <start></start>
+        <stop></stop>
+        <supervisor href=""></supervisor>
+    </metadata>
+    <workteam id="">
+        <person>
+            <name></name>
+            <email href=""></email>
+        </person>
+    </workteam>
+    <abstract>
+        <paragraph></paragraph>
+    </abstract>
+    <deliverables>
+        <link href=""></link>
+    </deliverables>
+</project_record>
