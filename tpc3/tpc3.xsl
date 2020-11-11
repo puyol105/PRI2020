@@ -18,8 +18,8 @@
                         Arqueossitios NW
                     </h3>
                     <ul>
-                        <xsl:apply-templates mode="indice" select="//ARQELEM">
-                            <xsl:sort select="IDENTI"/>
+                        <xsl:apply-templates select="//ARQELEM[not(COCNCEL=preceding::CONCEL)]">
+                            <xsl:sort select="normalize-space(CONCEL)"/>
                         </xsl:apply-templates>
                     </ul>
                 </body>
@@ -30,12 +30,10 @@
     
     <!-- Templates para o indice -->
     
-    <xsl:template match="ARQELEM" mode="indice">
+    <xsl:template match="ARQELEM">
         <li>
             <a name="i{generate-id()}"/>
             <a href="{generate-id()}.html">
-                <xsl:value-of select="IDENTI"/>
-                , 
                 <xsl:value-of select="CONCEL"/>
             </a>
         </li>
