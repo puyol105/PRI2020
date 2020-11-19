@@ -1,0 +1,16 @@
+{
+  "alunos": [
+    {
+      "nome": "Renato",
+      "id": "A75310",
+      "curso": "LEI",
+      "git": "puyol105"
+    },
+    {
+      "nome": "Seis",
+      "id": "A66666",
+      "curso": "LEI",
+      "git": "seis"
+    }
+  ]
+}

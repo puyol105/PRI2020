@@ -1,0 +1,19 @@
+Single Page App:
+
+Pagina:
+
+    Nova Tarefa (form):
+        Descricao:
+        Responsavel: Pick list
+        Data limit:
+    Registar
+
+    --------------------------------
+
+    Lista Tarefas
+        Data limt (ascending) | Responsavel | Descricao  
+        2 Botoes no fim da linha: Confirmar Cancelar
+
+    --------------------------------
+
+    Resolvidos/Cancelados
