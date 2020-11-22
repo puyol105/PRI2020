@@ -1,16 +1,40 @@
 {
-  "alunos": [
+  "tarefas": [
     {
-      "nome": "Renato",
-      "id": "A75310",
-      "curso": "LEI",
-      "git": "puyol105"
+      "id": "0",
+      "descricao": "fazer tpc6",
+      "responsavel": "renato",
+      "deadline": "24-11-2020",
+      "status": "em andamento"
     },
     {
-      "nome": "Seis",
-      "id": "A66666",
-      "curso": "LEI",
-      "git": "seis"
+      "id": "1",
+      "descricao": "fazer coisas",
+      "responsavel": "renato",
+      "deadline": "25-11-2020",
+      "status": "concluido"
+    },
+    {
+      "id": "2",
+      "descricao": "fazer mais coisas",
+      "responsavel": "renato",
+      "deadline": "23-11-2020",
+      "status": "cancelado"
+    },
+    {
+      "id": "3",
+      "descricao": "dar commit da cena",
+      "responsavel": "renato",
+      "deadline": "20-11-2020",
+      "status": "em andamento"
+    }
+  ],
+  "responsaveis": [
+    {
+      "nome": "renato"
+    },
+    {
+      "nome": "jcr"
     }
   ]
 }

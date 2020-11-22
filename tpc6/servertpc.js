@@ -1,6 +1,5 @@
 var http = require('http')
 var axios = require('axios')
-var fs = require('fs')
 var static = require('./static.js')
 
 var {parse} = require('querystring')
@@ -21,27 +20,27 @@ function recuperaInfo(request, callback){
 }
 
 // POST Confirmation HTML Page Template -------------------------------------
-function geraPostConfirm( aluno, d){
+function geraPostConfirm( tarefa, d){
     return `
     <html>
     <head>
-        <title>POST receipt: ${aluno.id}</title>
+        <title>POST receipt: ${tarefa.id}</title>
         <meta charset="utf-8"/>
         <link rel="icon" href="favicon.png"/>
         <link rel="stylesheet" href="w3.css"/>
     </head>
     <body>
         <div class="w3-card-4">
-            <header class="w3-container w3-teal">
-                <h1>Aluno ${aluno.id} inserido</h1>
+            <header class="w3-container w3-indigo">
+                <h1>Tarefa ${tarefa.id} inserido</h1>
             </header>
 
             <div class="w3-container">
-                <p><a href="/alunos/${aluno.id}">Aceda aqui à sua página."</a></p>
+                <p><a href="/tarefas/${tarefa.id}">Aceda aqui à sua página."</a></p>
             </div>
 
-            <footer class="w3-container w3-teal">
-                <address>Gerado por galuno::PRI2020 em ${d} - [<a href="/">Voltar</a>]</address>
+            <footer class="w3-container w3-indigo">
+                <address>Gerado por A75310::PRI2020 em ${d} - [<a href="/">Voltar</a>]</address>
             </footer>
         </div>
     </body>
@@ -49,40 +48,42 @@ function geraPostConfirm( aluno, d){
     `
 }
 
-// Template para a página com a lista de alunos ------------------
-function geraPagAlunos( alunos, d){
+// Template para a página com a lista de tarefas ------------------
+function geraPagTarefas( tarefas, d){
   let pagHTML = `
     <html>
         <head>
-            <title>Lista de alunos</title>
+            <title>Lista de tarefas</title>
             <meta charset="utf-8"/>
             <link rel="stylesheet" href="w3.css"/>
         </head>
         <body>
-            <div class="w3-container w3-teal">
-                <h2>Lista de Alunos</h2>
+            <div class="w3-container w3-indigo">
+                <h2>Lista de Tarefas</h2>
             </div>
             <table class="w3-table w3-bordered">
                 <tr>
-                    <th>Nome</th>
-                    <th>Número</th>
-                    <th>Curso</th>
+                    <th>Tarefa</th>
+                    <th>Responsável</th>
+                    <th>Data Final</th>
                 </tr>
   `
-  alunos.forEach(a => {
+  tarefas.forEach(t => {
       pagHTML += `
       <tr>
-        <td><a href="/alunos/${a.id}">${a.nome}</td>
-        <td>${a.id}</td>
-        <td>${a.curso}</td>
+        <td><a href="/tarefas/${t.id}">${t.descricao}</td>
+        <td>${t.responsavel}</td>
+        <td>${t.deadline}</td>
       </tr>
       `
   })
-
   pagHTML += `
         </table>
-        <div class="w3-container w3-teal">
-            <address>Gerado por galuno::PRI2020 em ${d} --------------</address>
+        <div class="w3-container ">
+            <a href="/tarefas/registar"><button class="w3-button w3-circle">➕</button></a>
+        </div>
+        <div class="w3-container w3-indigo">
+            <address>Gerado por A75310::PRI2020 em ${d} --------------</address>
         </div>
     </body>
     </html>
@@ -90,74 +91,77 @@ function geraPagAlunos( alunos, d){
   return pagHTML
 }
 
-// Template para a página de aluno -------------------------------------
-function geraPagAluno( aluno, d ){
-    return `
+// Template para a página de tarefa -------------------------------------
+function geraPagTarefa( tarefa, d ){
+    let pagHTML = `
     <html>
     <head>
-        <title>Aluno: ${aluno.id}</title>
+        <title>Tarefa_${tarefa.id}</title>
         <meta charset="utf-8"/>
         <link rel="stylesheet" href="w3.css"/>
     </head>
     <body>
         <div class="w3-card-4">
-            <header class="w3-container w3-teal">
-                <h1>Aluno ${aluno.id}</h1>
+            <header class="w3-container w3-indigo">
+                <h1>Tarefa ${tarefa.id}</h1>
             </header>
 
             <div class="w3-container">
                 <ul class="w3-ul w3-card-4" style="width:50%">
-                    <li><b>Nome: </b> ${aluno.nome}</li>
-                    <li><b>Número: </b> ${aluno.id}</li>
-                    <li><b>Curso: </b> ${aluno.curso}</li>
-                    <li><b>Git (link): </b> <a href="${aluno.git}">${aluno.git}</a></li>
-                </ul>
-            </div>
+                    <li><b>Descricao: </b> ${tarefa.descricao}</li>
+                    <li><b>Responsável: </b> ${tarefa.responsavel}</li>
+                    <li><b>Data Final: </b> ${tarefa.deadline}</li>
+                    <li><b>Estado: </b> ${tarefa.status}</li>
+                </ul>`
 
-            <footer class="w3-container w3-teal">
-                <address>Gerado por galuno::PRI2020 em ${d} - [<a href="/">Voltar</a>]</address>
+    if(tarefa.status === 'em andamento'){
+        pagHTML += `<button class="w3-button w3-circle"">✅</button><button class="w3-button w3-circle">❌</button>`
+    }
+    pagHTML += `</div>
+            <footer class="w3-container w3-indigo">
+                <address>Gerado por A75310::PRI2020 em ${d} - [<a href="/">Voltar</a>]</address>
             </footer>
         </div>
     </body>
     </html>
     `
+    return pagHTML
 }
-
-// Template para o formulário de aluno ------------------
-function geraFormAluno( d ){
+// Template para o formulário de tarefa ------------------
+function geraFormTarefa( d ){
     return `
     <html>
         <head>
-            <title>Registo de um aluno</title>
+            <title>Registo de uma tarefa</title>
             <meta charset="utf-8"/>
             <link rel="stylesheet" href="../w3.css"/>
         </head>
         <body>
         
         </body>
-            <div class="w3-container w3-teal">
-                <h2>Registo de Aluno</h2>
+            <div class="w3-container w3-indigo">
+                <h2>Registar Tarefa</h2>
             </div>
 
-            <form class="w3-container" action="/alunos" method="POST">
-                <label class="w3-text-teal"><b>Nome</b></label>
-                <input class="w3-input w3-border w3-light-grey" type="text" name="nome">
-          
-                <label class="w3-text-teal"><b>Número / Identificador</b></label>
+            <form class="w3-container" action="/tarefas" method="POST">
+                <label class="w3-text-teal"><b>ID</b></label>
                 <input class="w3-input w3-border w3-light-grey" type="text" name="id">
 
-                <label class="w3-text-teal"><b>Curso</b></label>
-                <input class="w3-input w3-border w3-light-grey" type="text" name="curso">
+                <label class="w3-text-teal"><b>Descrição</b></label>
+                <input class="w3-input w3-border w3-light-grey" type="text" name="descricao">
 
-                <label class="w3-text-teal"><b>Link para o repositório no Git</b></label>
-                <input class="w3-input w3-border w3-light-grey" type="text" name="git">
+                <label class="w3-text-teal"><b>Responsável</b></label>
+                <input class="w3-input w3-border w3-light-grey" type="text" name="responsavel">
+
+                <label class="w3-text-teal"><b>Data de Conclusão</b></label>
+                <input class="w3-input w3-border w3-light-grey" placeholder="DD-MM-AAAA" type="text" name="deadline">
           
                 <input class="w3-btn w3-blue-grey" type="submit" value="Registar"/>
                 <input class="w3-btn w3-blue-grey" type="reset" value="Limpar valores"/> 
             </form>
 
-            <footer class="w3-container w3-teal">
-                <address>Gerado por galuno::PRI2020 em ${d}</address>
+            <footer class="w3-container w3-indigo">
+                <address>Gerado por A75310::PRI2020 em ${d} - [<a href="/">Voltar</a>]</address>
             </footer>
         </body>
     </html>
@@ -179,57 +183,46 @@ var galunoServer = http.createServer(function (req, res) {
     else{
         switch(req.method){
             case "GET": 
-                // GET /alunos --------------------------------------------------------------------
-                if((req.url == "/") || (req.url == "/alunos")){
-                    axios.get("http://localhost:3000/alunos")
+                // GET /tarefas --------------------------------------------------------------------
+                if((req.url == "/") || (req.url == "/tarefas")){
+                    axios.get("http://localhost:3000/tarefas")
                         .then(response => {
-                            var alunos = response.data
+                            var tarefas = response.data
 
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(geraPagAlunos(alunos, d))
+                            res.write(geraPagTarefas(tarefas, d))
                             res.end()
 
                         })
                         .catch(function(erro){
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Não foi possível obter a lista de alunos...")
+                            res.write("<p>Não foi possível obter a lista de tarefas...")
                             res.end()
                         })
                 }
-                // GET /alunos/:id --------------------------------------------------------------------
-                else if(/\/alunos\/(A|PG)[0-9]+$/.test(req.url)){
-                    var idAluno = req.url.split("/")[2]
-                    axios.get("http://localhost:3000/alunos/" + idAluno)
+                // GET /tarefas/:id --------------------------------------------------------------------
+                else if(/\/tarefas\/[0-9]+$/.test(req.url)){
+                    var idTarefa = req.url.split("/")[2]
+                    axios.get("http://localhost:3000/tarefas/" + idTarefa)
                         .then( response => {
-                            let a = response.data
+                            let t = response.data
                             
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write(geraPagAluno(a, d))
+                            res.write(geraPagTarefa(t, d))
                             res.end()
                         })
                         .catch(function(erro){
                             res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                            res.write("<p>Não foi possível obter o registo do aluno")
+                            res.write("<p>Não foi possível obter a tarefa")
                             res.end()
                         })
                 }
-                // GET /alunos/registo --------------------------------------------------------------------
-                else if(req.url == "/alunos/registo"){
+                // GET /tarefas/registar --------------------------------------------------------------------
+                else if(req.url == "/tarefas/registar"){
                     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                    res.write(geraFormAluno(d))
+                    res.write(geraFormTarefa(d))
                     res.end()
-                    // Add code to render page with the student form
                 }
-                // GET /w3.css ------------------------------------------------------------------------
-                // else if(/w3.css$/.test(req.url)){
-                //     fs.readFile("w3.css", function(erro, dados){
-                //         if(!erro){
-                //             res.writeHead(200, {'Content-Type': 'text/css;charset=utf-8'})
-                //             res.write(dados)
-                //             res.end()
-                //         }
-                //     })
-                // }
                 else{
                     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
                     res.write("<p>" + req.method + " " + req.url + " não suportado neste serviço.</p>")
@@ -237,10 +230,10 @@ var galunoServer = http.createServer(function (req, res) {
                 }
                 break
             case "POST":
-                if(req.url == '/alunos'){
+                if(req.url == '/tarefas'){
                     recuperaInfo(req, info => {
-                        console.log('POST de aluno' + JSON.stringify(info))
-                        axios.post('http://localhost:3000/alunos', info)
+                        console.log('POST de tarefa' + JSON.stringify(info))
+                        axios.post('http://localhost:3000/tarefas', info)
                             .then(resp => {
                                 res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
                                 res.write(geraPostConfirm(resp.data, d))
@@ -255,7 +248,7 @@ var galunoServer = http.createServer(function (req, res) {
 
 
                     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'})
-                    res.write('<p>Recebi um POST dum aluno</p>')
+                    res.write('<p>Recebi um POST duma tarefa</p>')
                     res.write('<p><a href="/">Voltar</a></p>')
                     res.end()
                 }
